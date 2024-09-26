@@ -8,12 +8,14 @@ phases:
       - echo "Installing dependencies"
   build:
     commands:
-      - echo "Current directory contents:"
+      - echo "Current directory contents before copying:"
       - ls -al
       - echo "Building the website"
       - mkdir -p build
-      - cp -r ./* build/
-      - echo "Build completed successfully."
+      - echo "Copying files to build directory..."
+      - cp -r ./* build/ || echo "Copy command failed"  # add error handling
+      - echo "Contents of build directory after copying:"
+      - ls -al build/
 artifacts:
   files:
     - '**/*'
