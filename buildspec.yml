@@ -7,10 +7,13 @@ phases:
     commands:
       - echo "Installing dependencies"
   build:
-    commands:
-      - echo "Building the website"
-      - mkdir -p build
-      - cp -r * build/
+  commands:
+    - echo "Current directory contents:"
+    - ls -al
+    - echo "Building the website"
+    - mkdir -p build
+    - cp -r * build/
+
 artifacts:
   files:
     - '**/*'
