@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - echo "Installing dependencies"
+  build:
+    commands:
+      - echo "Building the website"
+      - mkdir -p build
+      - cp -r * build/
+artifacts:
+  files:
+    - '**/*'
