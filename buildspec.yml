@@ -8,11 +8,11 @@ phases:
       - echo "Installing dependencies"
   build:
   commands:
-    - echo "Current directory contents:"
-    - ls -al
     - echo "Building the website"
     - mkdir -p build
-    - cp -r * build/
+    - cp -r ./* build/
+    - cp -r ./.buildspec.yml build/  # if needed
+
 
 artifacts:
   files:
