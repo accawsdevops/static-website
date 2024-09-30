@@ -3,11 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>My Static Website</title>
+    <title>Welcome to the Code</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .welcome-text {
+            font-size: 3rem;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: fadeIn 2s forwards, bounce 2s 2s infinite, colorChange 3s infinite;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #ff6347;
+            }
+            25% {
+                color: #4682b4;
+            }
+            50% {
+                color: #32cd32;
+            }
+            75% {
+                color: #ffa500;
+            }
+            100% {
+                color: #ff6347;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Static Website</h1>
-    <img src="images/example.jpg" alt="Example Image">
+    <div class="welcome-text">Welcome to the Code</div>
 </body>
 </html>
