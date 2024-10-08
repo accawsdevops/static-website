@@ -3,7 +3,12 @@ set -e  # Exit immediately if a command exits with a non-zero status.
 
 echo "Starting after_install.sh script..."
 
-# Clean up existing files in /var/www/html
+# Clean up existing files in /var/www/html, including .git directory if it exists
+if [ -d /var/www/html/.git ]; then
+    echo "Removing existing .git directory..."
+    sudo rm -rf /var/www/html/.git
+fi
+
 echo "Cleaning up existing files in /var/www/html..."
 sudo rm -rf /var/www/html/*
 
