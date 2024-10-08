@@ -3,14 +3,15 @@ set -e  # Exit immediately if a command exits with a non-zero status.
 
 echo "Starting after_install.sh script..."
 
-# Clean up existing files in /var/www/html
-if [ -d /var/www/html ]; then
-    echo "Removing existing files in /var/www/html..."
-    sudo rm -rf /var/www/html/*
-else
-    echo "/var/www/html does not exist. Creating directory..."
-    sudo mkdir -p /var/www/html
+# Remove existing .git directory if it exists
+if [ -d /var/www/html/.git ]; then
+    echo "Removing existing .git directory..."
+    sudo rm -rf /var/www/html/.git
 fi
+
+# Clean up existing files in /var/www/html
+echo "Removing existing files in /var/www/html..."
+sudo rm -rf /var/www/html/*
 
 # Check if Apache is installed
 if ! command -v httpd &> /dev/null; then
