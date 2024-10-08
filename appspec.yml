@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /
     destination: /var/www/html/
+    ignore:
+      - .git/hooks/*  # Ignore git hooks to avoid conflicts
 hooks:
   AfterInstall:
     - location: scripts/after_install.sh
