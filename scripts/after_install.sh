@@ -29,10 +29,13 @@ else
     echo "Apache is already running."
 fi
 
-# Change ownership of files and log any errors
-if ! sudo chown -R apache:apache /var/www/html/*; then
-    echo "Failed to change ownership of files." >&2
-    exit 1
+# Wait for files to be copied or check if they exist
+echo "Checking if files exist in /var/www/html/..."
+if [ -d /var/www/html ] && [ "$(ls -A /var/www/html)" ]; then
+    echo "Files exist in /var/www/html, changing ownership..."
+    sudo chown -R apache:apache /var/www/html/*
+else
+    echo "No files found in /var/www/html, skipping ownership change."
 fi
 
 # Restart the web server and log any errors
