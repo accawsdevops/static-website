@@ -13,10 +13,6 @@ fi
 echo "Removing existing files in /var/www/html..."
 sudo rm -rf /var/www/html/*
 
-# Ensure the HTML directory is empty before copying new files
-echo "Ensuring /var/www/html is empty..."
-sudo rm -rf /var/www/html/*
-
 # Install Apache if not already installed
 if ! command -v httpd &> /dev/null; then
     echo "Apache (httpd) is not installed. Installing..."
@@ -33,22 +29,22 @@ else
     echo "Apache is already running."
 fi
 
-# Check if files exist in /var/www/html
-echo "Checking if files exist in /var/www/html..."
-if [ -d /var/www/html ] && [ "$(ls -A /var/www/html)" ]; then
-    echo "Files exist in /var/www/html, changing ownership..."
-    sudo chown -R apache:apache /var/www/html/*
-    sudo chmod -R 755 /var/www/html/*  # Ensure the files are readable by the web server
-else
-    echo "No files found in /var/www/html, skipping ownership change."
-fi
-
-# Ensure Apache's DocumentRoot is set to /var/www/html
+# Ensure the DocumentRoot is set to /var/www/html
 echo "Ensuring Apache's DocumentRoot is correctly set..."
 sudo sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html|' /etc/httpd/conf/httpd.conf
 sudo sed -i 's|<Directory "/var/www/html">|<Directory "/var/www/html">|' /etc/httpd/conf/httpd.conf
 
-# Restart the web server to apply changes
+# Remove default "It works!" page if it exists
+echo "Removing default Apache index.html if it exists..."
+sudo rm -f /var/www/html/index.html
+
+# Copy files and ensure ownership and permissions
+echo "Copying application files and ensuring ownership..."
+sudo cp -r * /var/www/html/
+sudo chown -R apache:apache /var/www/html/*
+sudo chmod -R 755 /var/www/html/*
+
+# Restart Apache to apply changes
 echo "Restarting Apache..."
 if ! sudo systemctl restart httpd; then
     echo "Failed to restart Apache." >&2
